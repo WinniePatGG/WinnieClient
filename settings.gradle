@@ -5,5 +5,7 @@ pluginManagement {
             url = 'https://maven.fabricmc.net/'
         }
         gradlePluginPortal()
+        maven { url 'https://jitpack.io' }
     }
 }
+rootProject.name = "WinnieClient"

@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ModuleManager extends Manager<Class<? extends Module>, Module> {
 
-    private final ConcurrentHashMap<Class<? extends Module>, Module> modules = new ConcurrentHashMap<>();
 
     public boolean register(Module module) {
         return register(module.getClass(), module);
@@ -38,20 +37,20 @@ public class ModuleManager extends Manager<Class<? extends Module>, Module> {
     }
 
     public void stop() {
-        modules.values().forEach(Module::stop);
-        modules.clear();
+        entries.values().forEach(Module::stop);
+        entries.clear();
     }
 
     public void render(DrawContext context) {
-        modules.values().forEach(module -> module.render(context));
+        entries.values().forEach(module -> module.render(context));
     }
 
     public void tick() {
-        modules.values().forEach(Module::tick);
+        entries.values().forEach(Module::tick);
     }
 
     @SuppressWarnings("unchecked")
     public <T extends Module> T get(Class<T> module) {
-        return (T) modules.get(module);
+        return (T) entries.get(module);
     }
 }

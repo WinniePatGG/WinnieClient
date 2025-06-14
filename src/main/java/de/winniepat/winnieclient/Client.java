@@ -1,5 +1,7 @@
 package de.winniepat.winnieclient;
 
+import de.winniepat.winnieclient.gui.overlay.OverlayManager;
+import de.winniepat.winnieclient.gui.overlay.overlays.FPSOverlay;
 import de.winniepat.winnieclient.module.ModuleManager;
 
 public class Client {
@@ -11,6 +13,10 @@ public class Client {
     }
 
     protected void init() {
+        OverlayManager overlayManager = new OverlayManager();
+        this.moduleManager.register(overlayManager);
+        overlayManager.register(new FPSOverlay());
+        overlayManager.setActive(FPSOverlay.class, true);
     }
 
     public ModuleManager modules() {

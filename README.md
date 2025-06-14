@@ -4,7 +4,7 @@
 
 ## 💡 Features
 
-- Nothing Yet
+- Nothing Special Yet
 
 ## 🚀 Getting Started
 

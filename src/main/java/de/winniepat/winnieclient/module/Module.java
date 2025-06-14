@@ -2,14 +2,14 @@ package de.winniepat.winnieclient.module;
 
 import net.minecraft.client.gui.DrawContext;
 
-public abstract class Module {
+public interface Module {
 
-    protected abstract void start();
+    default void start() { }
 
-    protected abstract void stop();
+    default void stop() { }
 
-    protected abstract void tick();
+    default void tick() { }
 
-    protected abstract void render(DrawContext context);
+    default void render(DrawContext context) { }
 
 }
