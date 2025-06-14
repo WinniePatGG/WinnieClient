@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ModuleManager extends Manager<Class<? extends Module>, Module> {
 
-    private final ConcurrentHashMap<Class<? extends Module>, Module> systems = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Class<? extends Module>, Module> modules = new ConcurrentHashMap<>();
 
     public boolean register(Module module) {
         return register(module.getClass(), module);
@@ -24,8 +24,8 @@ public class ModuleManager extends Manager<Class<? extends Module>, Module> {
         return super.register(type, module);
     }
 
-    public boolean unregister(Module system) {
-        return unregister(system.getClass());
+    public boolean unregister(Module module) {
+        return unregister(module.getClass());
     }
 
     @Override
@@ -38,20 +38,20 @@ public class ModuleManager extends Manager<Class<? extends Module>, Module> {
     }
 
     public void stop() {
-        systems.values().forEach(Module::stop);
-        systems.clear();
+        modules.values().forEach(Module::stop);
+        modules.clear();
     }
 
     public void render(DrawContext context) {
-        systems.values().forEach(system -> system.render(context));
+        modules.values().forEach(module -> module.render(context));
     }
 
     public void tick() {
-        systems.values().forEach(Module::tick);
+        modules.values().forEach(Module::tick);
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends Module> T get(Class<T> system) {
-        return (T) systems.get(system);
+    public <T extends Module> T get(Class<T> module) {
+        return (T) modules.get(module);
     }
 }
