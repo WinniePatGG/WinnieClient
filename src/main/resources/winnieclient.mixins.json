@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "de.winniepat.winnieclient.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ClientMixin",
+    "RenderMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
