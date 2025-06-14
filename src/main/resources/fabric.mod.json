@@ -7,14 +7,13 @@
   "authors": [],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/winnieclient/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "de.winniepat.winnieclient.client.ClientEntrypoint"
+      "de.winniepat.winnieclient.ClientEntrypoint"
     ],
     "main": [
-      "de.winniepat.winnieclient.ModEntrypoint"
+      "de.winniepat.winnieclient.ClientEntrypoint"
     ]
   },
   "mixins": [
