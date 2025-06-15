@@ -4,6 +4,7 @@ import de.winniepat.winnieclient.module.Module;
 import de.winniepat.winnieclient.utils.Registry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import org.jetbrains.annotations.NotNull;
 
 public class OverlayManager extends Registry<Overlay> implements Module {
     public void setActive(Overlay overlay, boolean active) {
@@ -22,7 +23,7 @@ public class OverlayManager extends Registry<Overlay> implements Module {
         get(overlay).toggleActive();
     }
 
-    public boolean isActive(Overlay overlay) {
+    public boolean isActive(@NotNull Overlay overlay) {
         return isActive(overlay.getClass());
     }
 
