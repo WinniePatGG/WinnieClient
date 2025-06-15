@@ -4,7 +4,8 @@
 
 ## 💡 Features
 
-- Nothing Special Yet
+- Rainbow color shift
+- Simple overlays
 
 ## 🚀 Getting Started
 
@@ -24,3 +25,5 @@ cd WinnieClient
 
 # Build the plugin (example using Gradle)
 ./gradlew build
+
+# Copy jar from /build/libs into mods folder
