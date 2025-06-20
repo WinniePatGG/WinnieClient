@@ -1,5 +1,6 @@
 package de.winniepat.winnieclient;
 
+import de.winniepat.winnieclient.backend.LoginChallenge;
 import de.winniepat.winnieclient.gui.overlay.OverlayManager;
 import de.winniepat.winnieclient.gui.overlay.overlays.FPSOverlay;
 import de.winniepat.winnieclient.gui.overlay.overlays.PingOverlay;
@@ -8,10 +9,15 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import java.net.http.HttpClient;
+import java.time.Duration;
+
 public class Client {
 
     public static String clientInfo = "WinnieClient 1.21.4-0.0.1 (20250614) | Minecraft 1.21.4";
     private final ModuleManager moduleManager;
+    private final HttpClient client = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(10)).build();
 
     public Client() {
         this.moduleManager = new ModuleManager();
@@ -26,6 +32,9 @@ public class Client {
 
         overlayManager.register(new PingOverlay());
         overlayManager.setActive(PingOverlay.class, true);
+
+        LoginChallenge loginChallenge = new LoginChallenge(client);
+        loginChallenge.verifyLoginOrLogin();
     }
 
     public ModuleManager modules() {
