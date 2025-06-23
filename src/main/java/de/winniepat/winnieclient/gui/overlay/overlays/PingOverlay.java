@@ -9,8 +9,8 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
 
 public class PingOverlay extends Overlay {
-    public PingOverlay() {
-        super("Ping");
+    public PingOverlay(double x, double y) {
+        super("Ping", x, y);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class PingOverlay extends Overlay {
             if (entry instanceof PlayerListEntryMixin accessor) {
                 int ping = accessor.getLatency();
                 String text = "Ping: " + ping + "ms";
-                RainbowColorShift.rainbowColorShift(context, font, text, 0, 0, 0L, 2.0f);
+                RainbowColorShift.rainbowColorShift(context, font, text, getX(), getY(), 0L, 2.0f);
             }
         }
     }

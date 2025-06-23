@@ -17,6 +17,19 @@ repositories {
     maven { url = 'https://maven.wispforest.io/releases/' }
     maven {url "https://repo.craftsblock.de/releases" }
     maven {url "https://repo.craftsblock.de/experimental" }
+    maven { url 'https://api.modrinth.com/maven' }
+    maven { url 'https://maven.terraformersmc.com/releases/' }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'GeckoLib'
+                url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+            }
+        }
+        filter {
+            includeGroup('software.bernie.geckolib')
+        }
+    }
     mavenCentral()
 
 }
@@ -26,6 +39,7 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation "software.bernie.geckolib:geckolib-fabric-1.21.4:4.8.5"
 
     implementation "de.craftsblock.craftscore:json:3.8.7"
     include "de.craftsblock.craftscore:json:3.8.7"

@@ -8,8 +8,8 @@ import net.minecraft.client.gui.DrawContext;
 
 public class FPSOverlay extends Overlay {
 
-    public FPSOverlay() {
-        super("fps");
+    public FPSOverlay(double x, double y) {
+        super("fps", x, y);
     }
 
     @Override
@@ -20,6 +20,6 @@ public class FPSOverlay extends Overlay {
     @Override
     public void render(DrawContext context, TextRenderer font) {
         String fps = "FPS: " + MinecraftClient.getInstance().getCurrentFps();
-        RainbowColorShift.rainbowColorShift(context, font, fps, 0, 0, 0L, 2.0f);
+        RainbowColorShift.rainbowColorShift(context, font, fps, getX(), getY(), 0L, 2.0f);
     }
 }

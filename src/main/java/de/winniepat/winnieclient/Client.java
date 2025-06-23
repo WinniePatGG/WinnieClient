@@ -1,11 +1,13 @@
 package de.winniepat.winnieclient;
 
-import de.winniepat.winnieclient.backend.LoginChallenge;
 import de.winniepat.winnieclient.gui.overlay.OverlayManager;
 import de.winniepat.winnieclient.gui.overlay.overlays.FPSOverlay;
+import de.winniepat.winnieclient.gui.overlay.overlays.IpOverlay;
 import de.winniepat.winnieclient.gui.overlay.overlays.PingOverlay;
 import de.winniepat.winnieclient.module.ModuleManager;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -14,7 +16,7 @@ import java.time.Duration;
 
 public class Client {
 
-    public static String clientInfo = "WinnieClient 1.21.4-0.0.1 (20250614) | Minecraft 1.21.4";
+    public static String clientInfo = "WinnieClient 0.0.1 (22.06.2025) | Minecraft 1.21.4";
     private final ModuleManager moduleManager;
     private final HttpClient client = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(10)).build();
@@ -27,14 +29,18 @@ public class Client {
         OverlayManager overlayManager = new OverlayManager();
         this.moduleManager.register(overlayManager);
 
-        overlayManager.register(new FPSOverlay());
+        overlayManager.register(new FPSOverlay(5, 5));
         overlayManager.setActive(FPSOverlay.class, true);
 
-        overlayManager.register(new PingOverlay());
+        overlayManager.register(new PingOverlay(5, 15));
         overlayManager.setActive(PingOverlay.class, true);
 
-        LoginChallenge loginChallenge = new LoginChallenge(client);
-        loginChallenge.verifyLoginOrLogin();
+        overlayManager.register(new IpOverlay(5, 25));
+        overlayManager.setActive(IpOverlay.class, true);
+
+
+        // LoginChallenge loginChallenge = new LoginChallenge(client);
+        // loginChallenge.verifyLoginOrLogin();
     }
 
     public ModuleManager modules() {

@@ -7,6 +7,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.FrameGraphBuilder;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.util.profiler.Profilers;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,8 +28,8 @@ public abstract class RenderMixin implements AutoCloseable{
     )
 
     public void render(RenderTickCounter counter, boolean tick, CallbackInfo ci, @Local DrawContext context) {
-        profiler.push("client");
+        Profilers.get().push("client");
         Client.instance().modules().render(context);
-        profiler.pop("client");
+        Profilers.get().pop();
     }
 }

@@ -9,14 +9,15 @@ public abstract class Overlay {
     private final String name;
 
     private boolean active = false;
+
     private double x;
     private double y;
 
-    public Overlay(@NotNull String name) {
+    public Overlay(@NotNull String name, double x, double y) {
         this.name = name;
 
-        this.x = 10;
-        this.y = 10;
+        this.x = x;
+        this.y = y;
     }
 
     public abstract void tick();
@@ -50,4 +51,5 @@ public abstract class Overlay {
     public int getY() {
         return (int) Math.round(y);
     }
+
 }
