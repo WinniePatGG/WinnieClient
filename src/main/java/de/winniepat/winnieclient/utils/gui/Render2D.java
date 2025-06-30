@@ -18,36 +18,27 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
 
-public class Render2D
-{
+public class Render2D {
     public static Vec3d center;
-
     public static MinecraftClient mc = MinecraftClient.getInstance();
 
-    public static void updateScreenCenter()
-    {
+    public static void updateScreenCenter() {
         Vector3f pos = new Vector3f(0, 0, 1);
 
-        if (mc.options.getBobView().getValue())
-        {
+        if (mc.options.getBobView().getValue()){
             MatrixStack bobViewMatrices = new MatrixStack();
 
             bobView(bobViewMatrices);
             pos.mulPosition(bobViewMatrices.peek().getPositionMatrix().invert());
         }
 
-        center = new Vec3d(pos.x, -pos.y, pos.z)
-                .rotateX(-(float) Math.toRadians(mc.gameRenderer.getCamera().getPitch()))
-                .rotateY(-(float) Math.toRadians(mc.gameRenderer.getCamera().getYaw()))
-                .add(mc.gameRenderer.getCamera().getPos());
+        center = new Vec3d(pos.x, -pos.y, pos.z).rotateX(-(float) Math.toRadians(mc.gameRenderer.getCamera().getPitch())).rotateY(-(float) Math.toRadians(mc.gameRenderer.getCamera().getYaw())).add(mc.gameRenderer.getCamera().getPos());
     }
 
-    private static void bobView(MatrixStack matrices)
-    {
+    private static void bobView(MatrixStack matrices) {
         Entity cameraEntity = MinecraftClient.getInstance().getCameraEntity();
 
-        if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity)
-        {
+        if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity){
             float tickDelta = mc.getRenderTickCounter().getTickDelta(true);
 
             float var7 = abstractClientPlayerEntity.distanceMoved - abstractClientPlayerEntity.lastDistanceMoved;
@@ -60,14 +51,11 @@ public class Render2D
         }
     }
 
-    public static void drawTexturedQuad(Matrix4f matrix4f, Identifier texture, Rectangle size, Color color)
-    {
+    public static void drawTexturedQuad(Matrix4f matrix4f, Identifier texture, Rectangle size, Color color) {
         drawTexturedQuad(matrix4f, texture, size.getX(), size.getY(), size.getWidth(), size.getHeight(), color);
     }
 
-    public static void drawTexturedQuad(Matrix4f matrix4f, Identifier texture, float x1, float y1, float width,
-                                        float height, Color color)
-    {
+    public static void drawTexturedQuad(Matrix4f matrix4f, Identifier texture, float x1, float y1, float width, float height, Color color) {
         int colorInt = color.getColorAsInt();
 
         float x2 = x1 + width;
@@ -87,14 +75,11 @@ public class Render2D
         RenderSystem.disableBlend();
     }
 
-
-    public static void drawBox(Matrix4f matrix4f, Rectangle size, Color color)
-    {
+    public static void drawBox(Matrix4f matrix4f, Rectangle size, Color color) {
         drawBox(matrix4f, size.getX(), size.getY(), size.getWidth(), size.getHeight(), color);
     }
 
-    public static void drawBox(Matrix4f matrix4f, float x, float y, float width, float height, Color color)
-    {
+    public static void drawBox(Matrix4f matrix4f, float x, float y, float width, float height, Color color) {
         int colorInt = color.getColorAsInt();
 
         RenderSystem.enableBlend();
@@ -115,14 +100,11 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    public static void drawRoundedBox(Matrix4f matrix4f, Rectangle size, float radius, Color color)
-    {
+    public static void drawRoundedBox(Matrix4f matrix4f, Rectangle size, float radius, Color color) {
         drawRoundedBox(matrix4f, size.getX(), size.getY(), size.getWidth(), size.getHeight(), radius, color);
     }
 
-    public static void drawRoundedBox(Matrix4f matrix4f, float x, float y, float width, float height, float radius,
-                                      Color color)
-    {
+    public static void drawRoundedBox(Matrix4f matrix4f, float x, float y, float width, float height, float radius, Color color) {
         int colorInt = color.getColorAsInt();
 
         RenderSystem.enableBlend();
@@ -183,8 +165,7 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    public static void drawCircle(Matrix4f matrix4f, float x, float y, float radius, Color color)
-    {
+    public static void drawCircle(Matrix4f matrix4f, float x, float y, float radius, Color color) {
         int colorInt = color.getColorAsInt();
 
         RenderSystem.enableBlend();
@@ -215,16 +196,13 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    public static void drawTranslucentBlurredRoundedBox(Matrix4f matrix4f, float x, float y, float width, float height,
-                                                        float radius, Color color)
-    {
+    public static void drawTranslucentBlurredRoundedBox(Matrix4f matrix4f, float x, float y, float width, float height, float radius, Color color) {
         RenderSystem.enableBlend();
         RenderSystem.disableDepthTest();
         GL11.glEnable(GL11.GL_LINE_SMOOTH);
         RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
 
-        for (int i = 0; i < 5; i++)
-        {
+        for (int i = 0; i < 5; i++) {
             float r = color.getRed();
             float g = color.getGreen();
             float b = color.getBlue();
@@ -240,16 +218,11 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    public static void drawOutlinedBox(Matrix4f matrix4f, Rectangle size, Color outlineColor, Color backgroundColor)
-    {
-        drawOutlinedBox(matrix4f, size.getX(), size.getY(), size.getWidth(), size.getHeight(), outlineColor,
-                backgroundColor);
+    public static void drawOutlinedBox(Matrix4f matrix4f, Rectangle size, Color outlineColor, Color backgroundColor) {
+        drawOutlinedBox(matrix4f, size.getX(), size.getY(), size.getWidth(), size.getHeight(), outlineColor, backgroundColor);
     }
 
-    public static void drawOutlinedBox(Matrix4f matrix4f, float x, float y, float width, float height,
-                                       Color outlineColor, Color backgroundColor)
-    {
-
+    public static void drawOutlinedBox(Matrix4f matrix4f, float x, float y, float width, float height, Color outlineColor, Color backgroundColor) {
         int backgroundColorInt = backgroundColor.getColorAsInt();
 
         RenderSystem.enableBlend();
@@ -280,14 +253,11 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    public static void drawBoxOutline(Matrix4f matrix4f, Rectangle size, Color color)
-    {
+    public static void drawBoxOutline(Matrix4f matrix4f, Rectangle size, Color color) {
         drawBoxOutline(matrix4f, size.getX(), size.getY(), size.getWidth(), size.getHeight(), color);
     }
 
-
-    public static void drawBoxOutline(Matrix4f matrix4f, float x, float y, float width, float height, Color color)
-    {
+    public static void drawBoxOutline(Matrix4f matrix4f, float x, float y, float width, float height, Color color) {
         int colorInt = color.getColorAsInt();
 
         RenderSystem.enableBlend();
@@ -311,15 +281,11 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    public static void drawRoundedBoxOutline(Matrix4f matrix4f, Rectangle size, float radius, Color color)
-    {
+    public static void drawRoundedBoxOutline(Matrix4f matrix4f, Rectangle size, float radius, Color color) {
         drawRoundedBoxOutline(matrix4f, size.getX(), size.getY(), size.getWidth(), size.getHeight(), radius, color);
     }
 
-    public static void drawOutlinedRoundedBox(Matrix4f matrix4f, float x, float y, float width, float height,
-                                              float radius, Color outlineColor, Color backgroundColor)
-    {
-
+    public static void drawOutlinedRoundedBox(Matrix4f matrix4f, float x, float y, float width, float height, float radius, Color outlineColor, Color backgroundColor) {
         int backgroundColorInt = backgroundColor.getColorAsInt();
 
         RenderSystem.enableBlend();
@@ -332,8 +298,7 @@ public class Render2D
         BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION_COLOR);
         buildFilledArc(bufferBuilder, matrix4f, x + radius, y + radius, radius, 180.0f, 90.0f, backgroundColor);
         buildFilledArc(bufferBuilder, matrix4f, x + width - radius, y + radius, radius, 270.0f, 90.0f, backgroundColor);
-        buildFilledArc(bufferBuilder, matrix4f, x + width - radius, y + height - radius, radius, 0.0f, 90.0f,
-                backgroundColor);
+        buildFilledArc(bufferBuilder, matrix4f, x + width - radius, y + height - radius, radius, 0.0f, 90.0f, backgroundColor);
         buildFilledArc(bufferBuilder, matrix4f, x + radius, y + height - radius, radius, 90.0f, 90.0f, backgroundColor);
 
         bufferBuilder.vertex(matrix4f, x + radius, y, 0).color(backgroundColorInt);
@@ -404,9 +369,7 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    public static void drawRoundedBoxOutline(Matrix4f matrix4f, float x, float y, float width, float height,
-                                             float radius, Color color)
-    {
+    public static void drawRoundedBoxOutline(Matrix4f matrix4f, float x, float y, float width, float height, float radius, Color color) {
         int colorInt = color.getColorAsInt();
 
         RenderSystem.enableBlend();
@@ -440,8 +403,7 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    public static void drawLine(Matrix4f matrix4f, float x1, float y1, float x2, float y2, Color color)
-    {
+    public static void drawLine(Matrix4f matrix4f, float x1, float y1, float x2, float y2, Color color) {
         int colorInt = color.getColorAsInt();
 
         RenderSystem.enableBlend();
@@ -461,16 +423,12 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    public static void drawHorizontalGradient(Matrix4f matrix4f, Rectangle size, Color startColor, Color endColor)
-    {
+    public static void drawHorizontalGradient(Matrix4f matrix4f, Rectangle size, Color startColor, Color endColor) {
         drawHorizontalGradient(matrix4f, size.getX(), size.getY(), size.getWidth(), size.getHeight(), startColor,
                 endColor);
     }
 
-
-    public static void drawHorizontalGradient(Matrix4f matrix4f, float x, float y, float width, float height,
-                                              Color startColor, Color endColor)
-    {
+    public static void drawHorizontalGradient(Matrix4f matrix4f, float x, float y, float width, float height, Color startColor, Color endColor) {
         int startColorInt = startColor.getColorAsInt();
         int endColorInt = endColor.getColorAsInt();
 
@@ -492,15 +450,11 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    public static void drawVerticalGradient(Matrix4f matrix4f, Rectangle size, Color startColor, Color endColor)
-    {
-        drawVerticalGradient(matrix4f, size.getX(), size.getY(), size.getWidth(), size.getHeight(), startColor,
-                endColor);
+    public static void drawVerticalGradient(Matrix4f matrix4f, Rectangle size, Color startColor, Color endColor) {
+        drawVerticalGradient(matrix4f, size.getX(), size.getY(), size.getWidth(), size.getHeight(), startColor, endColor);
     }
 
-    public static void drawVerticalGradient(Matrix4f matrix4f, float x, float y, float width, float height,
-                                            Color startColor, Color endColor)
-    {
+    public static void drawVerticalGradient(Matrix4f matrix4f, float x, float y, float width, float height, Color startColor, Color endColor) {
         int startColorInt = startColor.getColorAsInt();
         int endColorInt = endColor.getColorAsInt();
 
@@ -522,44 +476,34 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    public static void drawItem(DrawContext drawContext, ItemStack stack, float x, float y)
-    {
+    public static void drawItem(DrawContext drawContext, ItemStack stack, float x, float y) {
         drawContext.drawItem(stack, (int) x, (int) y);
     }
 
-    public static void drawString(DrawContext drawContext, String text, Vec3d pos, Color color)
-    {
+    public static void drawString(DrawContext drawContext, String text, Vec3d pos, Color color) {
 
     }
 
-    public static void drawStringWithScale(DrawContext drawContext, String text, float x, float y, Color color,
-                                           float scale)
-    {
+    public static void drawStringWithScale(DrawContext drawContext, String text, float x, float y, Color color, float scale) {
         MinecraftClient client = MinecraftClient.getInstance();
         MatrixStack matrixStack = drawContext.getMatrices();
         matrixStack.push();
         matrixStack.scale(scale, scale, 1.0f);
-        if (scale > 1.0f)
-        {
+        if (scale > 1.0f){
             matrixStack.translate(-x / scale, -y / scale, 0.0f);
         }
-        else
-        {
+        else {
             matrixStack.translate((x / scale) - x, (y * scale) - y, 0.0f);
         }
         drawContext.drawText(client.textRenderer, text, (int) x, (int) y, color.getColorAsInt(), false);
         matrixStack.pop();
     }
 
-    public static void buildFilledArc(BufferBuilder bufferBuilder, Matrix4f matrix, float x, float y, float radius,
-                                      float startAngle, float sweepAngle, Color color)
-    {
+    public static void buildFilledArc(BufferBuilder bufferBuilder, Matrix4f matrix, float x, float y, float radius, float startAngle, float sweepAngle, Color color) {
         double roundedInterval = (sweepAngle / radius);
-
         int colorInt = color.getColorAsInt();
 
-        for (int i = 0; i < radius; i++)
-        {
+        for (int i = 0; i < radius; i++) {
             double angle = Math.toRadians(startAngle + (i * roundedInterval));
             double angle2 = Math.toRadians(startAngle + ((i + 1) * roundedInterval));
             float radiusX1 = (float) (Math.cos(angle) * radius);
@@ -600,14 +544,11 @@ public class Render2D
         RenderSystem.enableDepthTest();
     }
 
-    private static void buildArc(BufferBuilder bufferBuilder, Matrix4f matrix, float x, float y, float radius,
-                                 float startAngle, float sweepAngle, Color color)
-    {
+    private static void buildArc(BufferBuilder bufferBuilder, Matrix4f matrix, float x, float y, float radius, float startAngle, float sweepAngle, Color color) {
         float roundedInterval = (sweepAngle / radius);
 
         int colorInt = color.getColorAsInt();
-        for (int i = 0; i < radius; i++)
-        {
+        for (int i = 0; i < radius; i++) {
             double angle = Math.toRadians(startAngle + (i * roundedInterval));
             float radiusX1 = (float) (Math.cos(angle) * radius);
             float radiusY1 = (float) Math.sin(angle) * radius;
@@ -616,9 +557,7 @@ public class Render2D
         }
     }
 
-
-    public static int getStringWidth(String text)
-    {
+    public static int getStringWidth(String text) {
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         return textRenderer.getWidth(text);
     }

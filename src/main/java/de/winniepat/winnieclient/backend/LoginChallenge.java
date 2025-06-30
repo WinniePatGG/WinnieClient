@@ -111,8 +111,8 @@ public class LoginChallenge implements ApiConstants{
             throw new IllegalStateException("Could not verify session");
 
         Json challengeResponse = completeMinecraftChallenge(token, forLogin);
-        int challengeResposeCode = challengeResponse.getInt("status");
-        if (challengeResposeCode != 200)
+        int challengeResponseCode = challengeResponse.getInt("status");
+        if (challengeResponseCode != 200)
             throw new IllegalStateException("Could not verify session");
 
         System.out.println("Session is verified!");

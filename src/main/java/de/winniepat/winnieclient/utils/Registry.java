@@ -24,6 +24,7 @@ public abstract class Registry<T> {
     public boolean contains(@NotNull T key) {
         return entries.contains(key);
     }
+
     public @Unmodifiable Collection<T> entries() {
         return Collections.unmodifiableCollection(this.entries);
     }

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(LivingEntityRenderer.class)
-public class ShowOwnNametagMixin {
+public abstract class ShowOwnNametagMixin {
     @ModifyExpressionValue(method = "hasLabel(Lnet/minecraft/entity/LivingEntity;D)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getCameraEntity()Lnet/minecraft/entity/Entity;"))
     public Entity obfuscateCameraEntity(Entity original) {
         return null;

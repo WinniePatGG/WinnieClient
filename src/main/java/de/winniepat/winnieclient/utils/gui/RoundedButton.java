@@ -4,18 +4,16 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.render.*;
+import net.minecraft.client.sound.SoundManager;
 import net.minecraft.text.Text;
 import org.joml.Matrix4f;
-
-import java.awt.*;
-
 
 public class RoundedButton extends ClickableWidget {
     private final Runnable onClick;
     private final Color color;
     private final Color hoverColor;
     private boolean isHovered = false;
+    private final SoundManager soundManager = new SoundManager(MinecraftClient.getInstance().options);
 
     public RoundedButton(int x, int y, int width, int height, Text message, Color color, Runnable onClick) {
         super(x, y, width, height, message);
@@ -39,6 +37,7 @@ public class RoundedButton extends ClickableWidget {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (isMouseOver(mouseX, mouseY) && button == 0) {
             onClick.run();
+            playDownSound(soundManager);
             return true;
         }
         return false;

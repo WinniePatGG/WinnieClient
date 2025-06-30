@@ -95,13 +95,6 @@ public class Rectangle {
     public void setHeight(Float height) {
         this.height = height;
     }
-
-    /**
-     * Returns whether or not this rectangle can be used for rendering, such that
-     * the X, Y, Width, and Height dimensions are all non-null.
-     *
-     * @return Whether this rectangle can be used for rendering.
-     */
     public boolean isDrawable() {
         return !(x == null || y == null || width == null || height == null);
     }

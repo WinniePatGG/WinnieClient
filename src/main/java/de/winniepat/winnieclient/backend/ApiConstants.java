@@ -8,7 +8,7 @@ public interface ApiConstants {
 
     String SCHEME = "http";
     String HOST = "localhost";
-    int PORT = 5432;
+    int PORT = 8765;
     String BASE_PATH = "v1";
 
     default URI buildApiUri(String path) {

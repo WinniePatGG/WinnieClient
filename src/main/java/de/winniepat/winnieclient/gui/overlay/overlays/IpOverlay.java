@@ -32,7 +32,6 @@ public class IpOverlay extends Overlay {
             serverAddress = serverEntry.address;
         }
 
-
         RainbowColorShift.rainbowColorShift(context, font, "Ip: " + serverAddress, getX(), getY(), 0L, 2.0f);
     }
 }
